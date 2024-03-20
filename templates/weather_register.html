@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #ddd;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007BFF;
+            color: #fff;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        td>button {
+            width: 75px;
+            height: 35px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 5px;
+        }
+    </style>
+    <title>Weather App</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Adicionar previsão ou registro</h2>
+        <form>
+            <label for="temperatura">Temperatura:</label>
+            <input type="text" id="temperatura" name="temperatura" required>
+
+            <label for="cidade">Cidade:</label>
+            <input type="text" id="city" name="cidade" required>
+
+            <label for="horario">Horário:</label>
+            <input type="time" id="time" name="horario" required>
+
+            <label for="data">Data:</label>
+            <input type="date" id="date" name="data" required>
+
+            <label for="pressao">Pressao:</label>
+            <input type="text" id="pressure" name="pressao" required>
+
+            <label for="umidade">Umidade:</label>
+            <input type="text" id="humidity" name="umidade" required>
+
+            <label for="precipitacao">Precipitação:</label>
+            <input type="text" id="precipitation" name="precipitacao" required>
+
+            <button id="add-weather" type="button">Adicionar</button>
+        </form>
+
+
+        <h1>Clima Tempo</h1>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Temperatura</th>
+                    <th>Cidade</th>
+                    <th>Horário</th>
+                    <th>Data</th>
+                    <th>Pressão</th>
+                    <th>Umidade</th>
+                    <th>Precipitação</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>25.5°C</td>
+                    <td>New York</td>
+                    <td>12:00 PM</td>
+                    <td>12-12-2023</td>
+                    <td>1015.2 hPa</td>
+                    <td>60%</td>
+                    <td>Light</td>
+                    <td class="actions">
+                        <button>Editar</button>
+                        <button>Deletar</button>
+                    </td>
+                </tr>
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+
+
+    </div>
+    <script>
+        let city = document.getElementById("city")
+        let time = document.getElementById("time")
+        let date = document.getElementById("date")
+        let pressure = document.getElementById("pressure")
+        let value = document.getElementById("humidity")
+        let precipitation = document.getElementById("precipitation")
+
+
+        let btn = document.getElementById("add-weather")
+        btn.addEventListener("click", () => {
+            console.log("ss")
+            console.log(precipitation.value)
+        })
+    </script>
+</body>
+
+</html>
