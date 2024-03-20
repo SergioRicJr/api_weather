@@ -2,8 +2,6 @@ from django.conf import settings
 import pymongo
 
 class WeatherRepository:
-    collection = ''
-
     def __init__(self, collection_name) -> None:
         self.collection = collection_name
 
@@ -20,6 +18,19 @@ class WeatherRepository:
         conn = self.getConnection()
         collection = conn[self.collection]
         return collection
+    
+    def getByAttribute(self, attribute, value):
+        document = self.getCollection().find_one({f"{attribute}": value})
+
+    def delete(self, document) -> None:
+        self.getCollection().delete_one(document)
+		
+    def deleteAll(self) -> None:
+        self.getCollection().delete_many({})
+
+    def findOneById(self, id):
+        document = self.getCollection().find_one({"_id": id})
+        return document
     
     def getAll(self):
         document = self.getCollection().find({})
