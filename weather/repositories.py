@@ -1,5 +1,6 @@
 from django.conf import settings
 import pymongo
+from bson import ObjectId
 
 class WeatherRepository:
     def __init__(self, collection_name) -> None:
@@ -29,6 +30,7 @@ class WeatherRepository:
         self.getCollection().delete_many({})
 
     def findOneById(self, id):
+        id = ObjectId(id)
         document = self.getCollection().find_one({"_id": id})
         return document
     
