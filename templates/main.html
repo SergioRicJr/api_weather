@@ -1,4 +1,3 @@
-<!-- main.html -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -20,8 +19,9 @@
         </a>
 
         <ul class="nav nav-pills">
-            <li class="nav-item"><a href="{% url 'Weather Generate' %}" class="nav-link">Generate</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Reset</a></li>
+          <li class="nav-item"><a href="{% url 'Weather Insert' %}" class="nav-link">Insert</a></li>
+          <li class="nav-item"><a href="{% url 'Weather Generate' %}" class="nav-link">Generate</a></li>
+            <li class="nav-item"><a href="{% url 'Weather Reset' %}" class="nav-link">Reset</a></li>
         </ul>
     </header>
     <main>
@@ -32,6 +32,13 @@
         </div>
     </main>
 
+    <footer class="bg-secondary text-center text-lg-start fixed-bottom">
+        <!-- Copyright -->
+        <div class="text-center p-3 text-white">
+          {% block verse %} {% endblock %} 
+        </div>
+        <!-- Copyright -->
+      </footer>
       
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
