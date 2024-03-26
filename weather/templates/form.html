@@ -1,9 +1,5 @@
 {% extends "main.html" %}
 
-{% block verse%}
-{{ verse }}
-{% endblock %}
-
 {% block content %}
 
     <h1>Insert Climate Data</h1>
@@ -20,9 +16,6 @@
                         {{ field.label }}: {{ field }}
                         </p>
                         {% endfor %}
-                    </div>
-                    <div class="card-footer">
-                        <input type="submit" value="Save">
                     </div>
                 </div>
             </div>
