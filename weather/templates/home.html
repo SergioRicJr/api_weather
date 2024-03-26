@@ -6,13 +6,13 @@
 
 {% block content %}
 
-    <h1>Climate Data</h1>
+<h1>Climate Data</h1>
 
-    <div class="d-flex justify-content-start flex-wrap">
+<div class="d-flex justify-content-start flex-wrap">
 
-        {% for weather in weathers %}
-        <div class="col-md-4 p-2">
-          <div class="card">
+    {% for weather in weathers %}
+    <div class="col-md-4 p-2">
+        <div class="card">
             <div class="card-header">
                 Temperature: {{ weather.temperature }}
             </div>
@@ -24,11 +24,16 @@
                     Humidity: {{ weather.humidity }} <br />
                     Weather: {{ weather.weather }}
                 </p>
+                <form method="post" action="/weather/delete/">
+                    {% csrf_token %}
+                    <input type="hidden" name="additional_field" value="{{ weather.id }}">
+                    <button type="submit" class="btn btn-danger">Excluir</button>
+                </form>
             </div>
-          </div>
         </div>
-
-        {% endfor %}
-
     </div>
+
+    {% endfor %}
+
+</div>
 {% endblock content %}
