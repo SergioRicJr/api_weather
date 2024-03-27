@@ -41,3 +41,11 @@ class WeatherRepository:
     def insert(self, document):
         document = self.getCollection().insert_one(document)
         return document
+    
+    def update(self, id, new_data):
+        identifier = {'_id': ObjectId(id)}
+
+        new_values = {'$set': new_data}
+
+        response = self.getCollection().update_one(identifier, new_values)
+        return response
