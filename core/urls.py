@@ -5,6 +5,7 @@ from weather.views import (
     WeatherGenerate,
     WeatherReset,
     WeatherInsert,
+    WeatherUpdate,
 )
 
 urlpatterns = [
@@ -13,4 +14,5 @@ urlpatterns = [
     path("generate", WeatherGenerate.as_view(), name="Weather Generate"),
     path("reset", WeatherReset.as_view(), name="Weather Reset"),
     path("weather/delete/", WeatherDeleteView.as_view(), name="delete_weather"),
+    path("update/<pk>", WeatherUpdate.as_view(), name="Weather Update"),
 ]
