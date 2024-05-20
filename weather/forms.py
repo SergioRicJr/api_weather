@@ -11,3 +11,11 @@ class WeatherForm(forms.Form):
     atmosphericPressure = forms.FloatField(required=False)
     humidity = forms.FloatField(required=False)
     weather = forms.CharField(max_length=255, required=False)
+
+class WeatherUpdateForm(forms.Form):
+    temperature = forms.FloatField(required=False)
+    date = forms.DateTimeField(required=False)
+    city = forms.CharField(max_length=255, required=False)
+    atmosphericPressure = forms.FloatField(required=False)
+    humidity = forms.FloatField(required=False)
+    weather = forms.CharField(max_length=255, required=False)

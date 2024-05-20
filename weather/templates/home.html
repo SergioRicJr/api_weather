@@ -16,7 +16,7 @@
             <div class="card-header">
                 Temperature: {{ weather.temperature }}
             </div>
-            <div class="card-body">
+            <div>
                 <p class="card-text">
                     Date: {{ weather.date }} <br />
                     City: {{ weather.city }} <br />
@@ -24,16 +24,18 @@
                     Humidity: {{ weather.humidity }} <br />
                     Weather: {{ weather.weather }}
                 </p>
-                <form method="post" action="/weather/delete/">
-                    {% csrf_token %}
-                    <input type="hidden" name="additional_field" value="{{ weather.id }}">
-                    <button type="submit" class="btn btn-danger">Excluir</button>
-                </form>
+                <div style="display: flex; justify-content: center; align-items: center;">
+                    <form method="post" action="/weather/delete/" style="margin-right: 10px;">
+                        {% csrf_token %}
+                        <input type="hidden" name="additional_field" value="{{ weather.id }}">
+                        <button type="submit" class="btn btn-danger">Excluir</button>
+                    </form>
+                    <a href="{% url 'Weather Update' pk=weather.id %}" class="btn btn-primary">Editar</a>
+                </div>
             </div>
         </div>
     </div>
-
     {% endfor %}
-
+    
 </div>
 {% endblock content %}
