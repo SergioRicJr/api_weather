@@ -84,7 +84,7 @@ class WeatherInsert(View):
     def get(self, request):
         weatherForm = WeatherForm()
 
-        return render(request, "update_form.html", {"form": weatherForm})
+        return render(request, "form.html", {"form": weatherForm})
 
     def post(self, request):
         weatherForm = WeatherForm(request.POST)
