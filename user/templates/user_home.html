@@ -1,0 +1,34 @@
+{% extends "main.html" %}
+
+{% block content %}
+
+<h1>User Data</h1>
+
+<div class="d-flex justify-content-start flex-wrap">
+
+    {% for user in users %}
+    <div class="col-md-4 p-2">
+        <div class="card">
+            <div class="card-header">
+                Username: {{ user.username }}
+            </div>
+            <div class="card-body">
+                <p class="card-text">
+                    Name: {{ user.name }} <br />
+                    Email: {{ user.email }} <br />
+                </p>
+                <div style="display: flex; justify-content: center; align-items: center;">
+                    <form method="post" action="/user/delete/" style="margin-right: 10px;">
+                        {% csrf_token %}
+                        <input type="hidden" name="additional_field" value="{{ user.id }}">
+                        <button type="submit" class="btn btn-danger">Excluir</button>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    
+</div>
+{% endblock content %}
