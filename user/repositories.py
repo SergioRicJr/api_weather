@@ -17,8 +17,10 @@ class UserRepository:
         collection = conn[self.collection]
         return collection
 
-    def getUserByNameAndPassword(self, name, password):
-        document = self.getCollection().find_one({"name": name, "password": password})
+    def getUserByNameAndPassword(self, username, password):
+        document = self.getCollection().find_one(
+            {"username": username, "password": password}
+        )
         return document
 
     def getByAttribute(self, attribute, value):

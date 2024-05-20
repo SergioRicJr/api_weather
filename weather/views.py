@@ -1,8 +1,12 @@
 from datetime import datetime
 from random import randrange
+from typing import Any
+from django.http import HttpRequest
 from django.urls import reverse
 from django.views import View
 from django.shortcuts import render, redirect
+
+from user.authentication import getAuthenticatedUser, verifyToken
 from .models import WeatherEntity
 from .repositories import WeatherRepository
 from .serializers import WeatherSerializer
@@ -10,7 +14,22 @@ from .forms import WeatherForm, WeatherUpdateForm
 
 
 class WeatherView(View):
+    authenticate = False
+
+    def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any):
+        cookie_token = request.COOKIES.get("auth_token", "Cookie not found")
+        error_code, _ = verifyToken(cookie_token)
+        print(error_code)
+
+        if error_code == 0:
+            user = getAuthenticatedUser(cookie_token)
+            self.authenticate = True
+
+        return super().dispatch(request, *args, **kwargs)
+
     def get(self, request):
+        if not self.authenticate:
+            return redirect("Login")
         repository = WeatherRepository(collection_name="weathers")
         weathers = list(repository.getAll())
         serializer = WeatherSerializer(data=weathers, many=True)
@@ -26,7 +45,22 @@ class WeatherView(View):
 
 
 class WeatherDeleteView(View):
+    authenticate = False
+
+    def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any):
+        cookie_token = request.COOKIES.get("auth_token", "Cookie not found")
+        error_code, _ = verifyToken(cookie_token)
+        print(error_code)
+
+        if error_code == 0:
+            user = getAuthenticatedUser(cookie_token)
+            self.authenticate = True
+
+        return super().dispatch(request, *args, **kwargs)
+
     def post(self, request):
+        if not self.authenticate:
+            return redirect("Login")
         additional_value = request.POST.get("additional_field")
         weatherRepository = WeatherRepository("weathers")
         weather = weatherRepository.findOneById(additional_value)
@@ -35,7 +69,22 @@ class WeatherDeleteView(View):
 
 
 class WeatherGenerate(View):
+    authenticate = False
+
+    def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any):
+        cookie_token = request.COOKIES.get("auth_token", "Cookie not found")
+        error_code, _ = verifyToken(cookie_token)
+        print(error_code)
+
+        if error_code == 0:
+            user = getAuthenticatedUser(cookie_token)
+            self.authenticate = True
+
+        return super().dispatch(request, *args, **kwargs)
+
     def get(self, request):
+        if not self.authenticate:
+            return redirect("Login")
         repository = WeatherRepository(collection_name="weathers")
         weather = WeatherEntity(
             temperature=randrange(start=17, stop=40),
@@ -52,7 +101,22 @@ class WeatherGenerate(View):
 
 
 class WeatherReset(View):
+    authenticate = False
+
+    def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any):
+        cookie_token = request.COOKIES.get("auth_token", "Cookie not found")
+        error_code, _ = verifyToken(cookie_token)
+        print(error_code)
+
+        if error_code == 0:
+            user = getAuthenticatedUser(cookie_token)
+            self.authenticate = True
+
+        return super().dispatch(request, *args, **kwargs)
+
     def get(self, request):
+        if not self.authenticate:
+            return redirect("Login")
         repository = WeatherRepository(collection_name="weathers")
         repository.deleteAll()
 
@@ -60,7 +124,22 @@ class WeatherReset(View):
 
 
 class WeatherUpdate(View):
+    authenticate = False
+
+    def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any):
+        cookie_token = request.COOKIES.get("auth_token", "Cookie not found")
+        error_code, _ = verifyToken(cookie_token)
+        print(error_code)
+
+        if error_code == 0:
+            user = getAuthenticatedUser(cookie_token)
+            self.authenticate = True
+
+        return super().dispatch(request, *args, **kwargs)
+
     def get(self, request, pk):
+        if not self.authenticate:
+            return redirect("Login")
         weatherForm = WeatherUpdateForm()
 
         return render(
@@ -68,6 +147,8 @@ class WeatherUpdate(View):
         )
 
     def post(self, request, pk):
+        if not self.authenticate:
+            return redirect("Login")
         weatherForm = WeatherUpdateForm(request.POST)
         serializer = WeatherSerializer(data=weatherForm.data)
         serializer.is_valid(raise_exception=True)
@@ -81,12 +162,29 @@ class WeatherUpdate(View):
 
 
 class WeatherInsert(View):
+    authenticate = False
+
+    def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any):
+        cookie_token = request.COOKIES.get("auth_token", "Cookie not found")
+        error_code, _ = verifyToken(cookie_token)
+        print(error_code)
+
+        if error_code == 0:
+            user = getAuthenticatedUser(cookie_token)
+            self.authenticate = True
+
+        return super().dispatch(request, *args, **kwargs)
+
     def get(self, request):
+        if not self.authenticate:
+            return redirect("Login")
         weatherForm = WeatherForm()
 
         return render(request, "form.html", {"form": weatherForm})
 
     def post(self, request):
+        if not self.authenticate:
+            return redirect("Login")
         weatherForm = WeatherForm(request.POST)
         if weatherForm.is_valid():
             serializer = WeatherSerializer(data=weatherForm.data)
