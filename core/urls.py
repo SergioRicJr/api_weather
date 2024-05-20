@@ -7,6 +7,7 @@ from weather.views import (
     WeatherInsert,
     WeatherUpdate,
 )
+from user.views import UserDeleteView, UserInsert, UserView
 
 urlpatterns = [
     path("", WeatherView.as_view(), name="Weather View"),
@@ -15,4 +16,7 @@ urlpatterns = [
     path("reset", WeatherReset.as_view(), name="Weather Reset"),
     path("weather/delete/", WeatherDeleteView.as_view(), name="delete_weather"),
     path("update/<pk>", WeatherUpdate.as_view(), name="Weather Update"),
+    path("user_insert", UserInsert.as_view(), name="User Insert"),
+    path("users", UserView.as_view(), name="User View"),
+    path("user/delete/", UserDeleteView.as_view(), name="User Delete View"),
 ]
