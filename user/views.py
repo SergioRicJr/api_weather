@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 from .models import UserEntity
 from .repositories import UserRepository
 from .serializers import UserSerializer
-from .forms import UserForm
+from .forms import UserForm, UserUpdateForm
 
 
 class UserView(View):
@@ -36,50 +36,25 @@ class UserDeleteView(View):
         return redirect("User View")
 
 
-# class WeatherGenerate(View):
-#     def get(self, request):
-#         repository = WeatherRepository(collection_name="weathers")
-#         weather = WeatherEntity(
-#             temperature=randrange(start=17, stop=40),
-#             date=datetime.now(),
-#             city="Sorocaba",
-#         )
-#         serializer = WeatherSerializer(data=weather.__dict__)
-#         if serializer.is_valid():
-#             repository.insert(serializer.data)
-#         else:
-#             print(serializer.errors)
+class UserUpdate(View):
+    def get(self, request, pk):
+        userForm = UserUpdateForm()
 
-#         return redirect("Weather View")
+        return render(
+            request, "user_update_form.html", {"form": userForm, "primary_key": pk}
+        )
 
-
-# class WeatherReset(View):
-#     def get(self, request):
-#         repository = WeatherRepository(collection_name="weathers")
-#         repository.deleteAll()
-
-#         return redirect("Weather View")
-
-
-# class WeatherUpdate(View):
-#     def get(self, request, pk):
-#         weatherForm = WeatherUpdateForm()
-
-#         return render(
-#             request, "update_form.html", {"form": weatherForm, "primary_key": pk}
-#         )
-
-#     def post(self, request, pk):
-#         weatherForm = WeatherUpdateForm(request.POST)
-#         serializer = WeatherSerializer(data=weatherForm.data)
-#         serializer.is_valid(raise_exception=True)
-#         dados_preenchidos = {}
-#         for campo, valor in serializer.data.items():
-#             if valor is not None and valor != "":
-#                 dados_preenchidos[campo] = valor
-#         repository = WeatherRepository(collection_name="weathers")
-#         repository.update(pk, dados_preenchidos)
-#         return redirect("Weather View")
+    def post(self, request, pk):
+        userForm = UserUpdateForm(request.POST)
+        serializer = UserSerializer(data=userForm.data)
+        serializer.is_valid(raise_exception=True)
+        dados_preenchidos = {}
+        for campo, valor in serializer.data.items():
+            if valor is not None and valor != "":
+                dados_preenchidos[campo] = valor
+        repository = UserRepository(collection_name="user")
+        repository.update(pk, dados_preenchidos)
+        return redirect("User View")
 
 
 class UserInsert(View):

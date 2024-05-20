@@ -7,3 +7,10 @@ class UserForm(forms.Form):
     email = forms.EmailField(required=False)
     password = forms.CharField(max_length=255, required=True)
     # password = forms.CharField(max_length=255, required=True, widget=forms.PasswordInput())
+
+
+class UserUpdateForm(forms.Form):
+    username = forms.CharField(max_length=255, required=False)
+    name = forms.CharField(max_length=255, required=False)
+    email = forms.EmailField(required=False)
+    password = forms.CharField(max_length=255, required=False)

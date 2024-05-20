@@ -23,12 +23,12 @@
                         <input type="hidden" name="additional_field" value="{{ user.id }}">
                         <button type="submit" class="btn btn-danger">Excluir</button>
                     </form>
-                    
+                    <a href="{% url 'User Update' pk=user.id %}" class="btn btn-primary">Editar</a>
                 </div>
             </div>
         </div>
     </div>
     {% endfor %}
-    
+
 </div>
 {% endblock content %}
